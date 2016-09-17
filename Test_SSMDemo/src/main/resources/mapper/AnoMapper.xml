@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jameshu.annotation.dao.IAnoDao" >
+  <resultMap id="BaseResultMap" type="com.jameshu.entity.Sys_Annotation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="clienttype" property="clienttype" jdbcType="INTEGER" />
+	<result column="author" property="author" jdbcType="VARCHAR" />
+	<result column="method" property="method" jdbcType="VARCHAR" />
+	<result column="module" property="module" jdbcType="VARCHAR" />
+	<result column="service" property="service" jdbcType="VARCHAR" />
+	<result column="input" property="input" jdbcType="VARCHAR" />
+	<result column="output" property="output" jdbcType="VARCHAR" />
+	<result column="descre" property="descre" jdbcType="VARCHAR" />
+  </resultMap>
+  
+<!--   <resultMap id="ResultOfInteger" type="java.lang.Integer">  
+    <result column="budget" property="budget" jdbcType="INTEGER" />  
+</resultMap>   -->
+
+  <sql id="Base_Column_List" >
+    id,clienttype, author, method, module,service,input,output,descre
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_anotation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_anotation
+  </select>
+   <select id="selectAuthor" resultMap="BaseResultMap" >
+    select 
+    DISTINCT(author) author
+    from sys_anotation
+  </select>
+</mapper>
