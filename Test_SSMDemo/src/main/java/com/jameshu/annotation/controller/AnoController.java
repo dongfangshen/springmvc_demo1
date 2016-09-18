@@ -34,14 +34,36 @@ public class AnoController {
 
 	// 查看所有方法
 	@RequestMapping("/hello/anoList")
-	public String anoList(ModelMap modelMap) {
+	public String anoList(Model modelMap) {
 		List<Sys_Annotation> list = anoService.selectAll();
 
 		Map<String, Object> authors = anoService.selectAuthor();
 		Map<String, Object> clients = paramService.selectByName("ClientType");
-		modelMap.addAttribute("anoList", list);
+		//modelMap.addAttribute("anoList", list);
+		/*{"anoList":[{
+			"name":"张三",
+			"desgination":"张三",
+			"salary":50,
+			"country":"武汉"
+			}]}*/
+		StringBuilder sb = new StringBuilder();
+		String name="张三";
+		String desgination="武汉";
+		int salary=50;
+		String country="ggunas";
+		sb.append("{\"anoL\":");
+		sb.append("[");
+		sb.append("{");
+		sb.append("\"name\":\"" + name + "\",");
+		sb.append("\"desgination\":\"" + desgination + "\",");
+		sb.append("\"salary\":\"" + salary + "\",");
+		sb.append("\"country\":\"" + country + "\"");
+		sb.append("}");
+		sb.append("]}");
+		modelMap.addAttribute("anoList", sb.toString());
 		modelMap.addAttribute("authorList", authors);
 		modelMap.addAttribute("clientList", clients);
+		logger.info(sb.toString());
 		return "anoList";
 	}
 

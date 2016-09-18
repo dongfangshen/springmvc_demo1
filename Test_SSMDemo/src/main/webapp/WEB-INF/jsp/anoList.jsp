@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!doctype html>
 <html>
 <head>
@@ -48,8 +49,8 @@
 						<label for="lblAuthor" class="col-md-1">方法:</label>
 						<div class="col-md-3">
 							<div class="input-group">
-								<input type="text" class="form-control" id="txtMethodOrDes" name="methodOrDes"
-									placeholder="输入方法名或备注">
+								<input type="text" class="form-control" id="txtMethodOrDes"
+									name="methodOrDes" placeholder="输入方法名或备注">
 							</div>
 						</div>
 					</div>
@@ -60,7 +61,7 @@
 				</fieldset>
 			</form>
 		</div>
-		<table class="table table-striped">
+		<%-- <table class="table table-striped">
 			<tr>
 				<th>方法名</th>
 				<th>作者</th>
@@ -92,14 +93,18 @@
 					</tr>
 				</c:otherwise>
 			</c:choose>
-		</table>
+		</table> --%>
+		<div>
+			<jsp:include page="partialAnoList.jsp" />
+		</div>
 	</div>
 	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
 
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+	<!--jquery datatable文件  -->
+	<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
 		/* $(function () {
 		 $("#btnSearch").click(function () {
