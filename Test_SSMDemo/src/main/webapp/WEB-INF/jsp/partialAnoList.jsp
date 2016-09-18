@@ -69,7 +69,7 @@
                  }
              }
              else
-                 $("#tbSection").append('<tr><td colspan="12">暂无数据!</td></tr>');   
+                 $("#tbSection").append('<tr><td colspan="12">暂无数据!  </td></tr>');   
 		});
 	</script>
 </body>
