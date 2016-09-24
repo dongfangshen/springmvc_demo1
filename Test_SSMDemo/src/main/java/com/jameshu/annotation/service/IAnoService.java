@@ -1,5 +1,6 @@
 package com.jameshu.annotation.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,4 +12,6 @@ public interface IAnoService {
 	List<Sys_Annotation> selectAll();
 	
 	Map<String,Object>  selectAuthor();
+	
+	List<Sys_Annotation>  selectAnoByWhere(HashMap<String, Object> map);
 }

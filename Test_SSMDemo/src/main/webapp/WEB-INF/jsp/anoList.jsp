@@ -11,12 +11,22 @@
 <title>hello world</title>
 <link rel="stylesheet"
 	href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+<script type="text/javascript">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js">
+</script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<!--jquery datatable文件  -->
+<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+</script>
 </head>
 <body>
 	<div class="container">
 		<div class="page-header">
 			<h4>方法列表</h4>
-			<form action="anoListByWhere" method="post">
 				<fieldset>
 					<div class="form-group">
 						<label for="lblAuthor" class="col-md-1">开发人:</label>
@@ -26,7 +36,7 @@
 									class="form-control" name="author">
 									<option value="-1" selected="selected">请选择</option>
 									<c:forEach items="${authorList}" var="al">
-										<option value="${al.key}">${al.value}</option>
+										<option value="${al.value}">${al.value}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -59,7 +69,6 @@
 							" style="width: 100px;">查询</button>
 					</div>
 				</fieldset>
-			</form>
 		</div>
 		<%-- <table class="table table-striped">
 			<tr>
@@ -98,34 +107,45 @@
 			<jsp:include page="partialAnoList.jsp" />
 		</div>
 	</div>
-	<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
-	<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-
-	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-	<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<!--jquery datatable文件  -->
-	<script src="//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 	<script type="text/javascript">
-		/* $(function () {
-		 $("#btnSearch").click(function () {
-			 alert("进入");
-			 var clientType=$("#crt_ClientType").val();
-			 var author=$("#crt_Author").val();
-			 var methodOrDes=$("#txtMethodOrDes").val();
-		        $.ajax({
-		            "url": "${pageContext.request.contextPath}/ano/anoListByWhere",
-		            "type": "POST",
-		            "data": {
-		                "clientType": clientType,
-		                "author": author,
-		                "methodOrDes": methodOrDes
-		            },
-		            "success": function (data) {
-		            	alert("成功!");
-		            }
-		        });
-		    });
-		}) */
+		$(function() {
+			$("#btnSearch")
+					.click(
+							function() {
+								var clientType = $("#crt_ClientType").val();
+								var author = $("#crt_Author").val();
+								var methodOrDes = $("#txtMethodOrDes").val();
+								$.ajax({
+											"url" : "${pageContext.request.contextPath}/ano/hello/anoListByWhere",
+											"type" : "POST",
+											"dataType" : 'json',
+											"data" : {
+												"clientType" : clientType,
+												"author" : author,
+												"methodOrDes" : methodOrDes
+											},
+											"success" : function(data) {
+												 if (data!=null) {
+													 $("#tbSection").html(null);
+									                 var userSection = data.anoList;
+									                 for (var i = 0; i < userSection.length; i++) {
+									                     $("#tbSection").append("<tr></tr>");
+									                     $("#tbSection tr").last().append("<td>" + userSection[i].method + "</td>");
+									                     $("#tbSection tr").last().append("<td>" + userSection[i].author+ "</td>");
+									                     $("#tbSection tr").last().append("<td>" + userSection[i].clienttype + "</td>");
+									                     $("#tbSection tr").last().append("<td>" + userSection[i].module + "</td>");
+									                     $("#tbSection tr").last().append("<td>" + userSection[i].service + "</td>");
+									                     $("#tbSection tr").last().append("<td>" + userSection[i].descre + "</td>");
+									                     $("#tbSection tr").last().append("<td><a type='button' class='btn btn-sm btn-success' href='${pageContext.request.contextPath}/ano/showAno/"+userSection[i].id +"'>详情</a></td>");
+									                 }
+									             }
+									             else
+									                 $("#tbSection").append('<tr><td colspan="12">暂无数据！</td></tr>');
+											}
+										});
+							});
+
+		})
 	</script>
 </body>
 </html>

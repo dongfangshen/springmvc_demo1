@@ -88,6 +88,11 @@ public class AnoService implements IAnoService {
 	}
 
 	@Override
+	public List<Sys_Annotation> selectAnoByWhere(HashMap<String, Object> map)
+	{
+		return anoDao.selectAnoByWhere(map);
+	}
+	@Override
 	public List<Sys_Annotation> selectAll() {
 		return anoDao.selectAll();
 	}

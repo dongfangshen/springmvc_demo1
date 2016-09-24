@@ -26,9 +26,9 @@
     from sys_anotation
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
+ <select id="selectAll" resultMap="BaseResultMap" >
     select 
-    <include refid="Base_Column_List" />
+     id,clienttype, author, method, module,service,descre
     from sys_anotation
   </select>
    <select id="selectAuthor" resultMap="BaseResultMap" >
@@ -36,4 +36,19 @@
     DISTINCT(author) author
     from sys_anotation
   </select>
+  
+  <select id="selectAnoByWhere" parameterType="java.util.Map" resultMap="BaseResultMap">  
+  select 
+     id,clienttype, author, method, module,service,descre
+    from sys_anotation where 1=1
+    <if test="_parameter.containsKey('author')">  
+        AND author = #{author,jdbcType=VARCHAR}
+    </if>  
+    <if test="_parameter.containsKey('clienttype')">  
+       AND clienttype = #{clienttype,jdbcType=INTEGER}
+    </if>  
+    <if test="_parameter.containsKey('methodOrDes')">  
+       AND (method like "%"#{methodOrDes}"%" or  descre like "%"#{methodOrDes}"%")
+    </if> 
+</select> 
 </mapper>
